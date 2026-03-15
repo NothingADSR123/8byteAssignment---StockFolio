@@ -24,7 +24,10 @@ export function usePortfolio() {
       setError(null);
       if (isManual || !data) setRefreshing(true);
 
-      const res = await fetch('/api/portfolio', { cache: 'no-store' });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/api/portfolio`,
+        { cache: 'no-store' }
+      );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json: PortfolioResponse = await res.json();
       setData(json);
